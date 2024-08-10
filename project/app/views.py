@@ -27,7 +27,18 @@ from .serializers import *
 
 #      ------------------------------------------------BASSIC LEVEL 
 # class Studentviewset(viewsets.ModelViewSet):
-#     authentication_classes = [SessionAuthentication, BasicAuthentication]
+#     authentication_classes = [BasicAuthentication]
 #     permission_classes = [IsAuthenticated]
 #     queryset = StudentModel.objects.all()
 #     serializer_class = StudentSerializer
+
+# -----------------------------------------------TOKEN AUTHENTICATION 
+#  there are he three methods 
+#  -----------------1= through admin panel 
+# -------------------2= through cmd
+# --------------------3= through views and urls 
+
+class Studentviewset(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = StudentModel.objects.all()
+    serializer_class = StudentSerializer
