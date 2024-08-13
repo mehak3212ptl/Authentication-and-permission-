@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -127,10 +128,32 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # project level authentication 
 
+# REST_FRAMEWORK = {
+#      'DEFAULT_AUTHENTICATION_CLASSES': [
+# #         # 'rest_framework.authentication.BasicAuthentication',
+# #         'rest_framework.authentication.SessionAuthentication'
+#         'rest_framework.authentication.TokenAuthentication'
+#      ]
+# }
+
+# ------JWT token
+
 REST_FRAMEWORK = {
-     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         # 'rest_framework.authentication.BasicAuthentication',
-#         'rest_framework.authentication.SessionAuthentication'
-        'rest_framework.authentication.TokenAuthentication'
-     ]
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+       
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+    
 }
+from datetime import timedelta
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    # "ROTATE_REFRESH_TOKENS": False,by default
+    "ROTATE_REFRESH_TOKENS": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id"}
+
